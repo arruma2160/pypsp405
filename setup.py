@@ -10,5 +10,5 @@ setup(
             'Programming Language :: Python',
             'Intended Audience :: Science/Research',
         ],
-        install_requires=['pyserial'],
+        install_requires=['pyserial','mock'],
       )
