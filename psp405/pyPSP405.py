@@ -57,42 +57,42 @@ class PSP405(object):
     
     @property
     def status_values(self):
-        pass
+        self.ser.write(_commands['GET_STATUS_VALUES'])
 
     @property
     def output_volt(self):
-        pass
+        self.ser.write(_commands['GET_OUTPUT_VOLT'])
     @output_volt.setter
-    def output_volt(self):
-        pass
+    def output_volt(self, volt):
+        self.ser.write(_commands['SET_VOLT_LIMIT'])
 
     @property
     def output_current(self):
-        pass
+        self.ser.write(_commands['GET_OUTPUT_CURRENT'])
     @output_current.setter
-    def output_current(self):
-        pass
+    def output_current(self, current):
+        self.ser.write(_commands['SET_CUR_LIMIT'])
 
     @property
     def output_load(self):
-        pass
+        self.ser.write(_commands['GET_OUTPUT_LOAD'])
     @output_load.setter
-    def output_load(self):
-        pass
+    def output_load(self, load):
+        self.ser.write(_commands['SET_LOAD_LIMIT'])
 
     @property
     def volt_limit(self):
-        pass
+        self.ser.write(_commands['GET_VOLT_LIMIT'])
 
     @property
     def current_limit(self):
-        pass
+        self.ser.write(_commands['GET_CURRENT_LIMIT'])
 
     @property
     def load_limit(self):
-        pass
+        self.ser.write(_commands['GET_LOAD_LIMIT'])
 
     @property
     def dev_status(self):
-        pass
+        self.ser.write(_commands['GET_DEV_STATUS'])
 
