@@ -16,6 +16,21 @@ import sys
 import os
 from .exceptions405 import NoPortParam, Permissions
 
+_commands = {
+        'GET_STATUS_VALUES'   : 'L\r',
+        'GET_OUTPUT_VOLT'     : 'V\r',
+        'GET_OUTPUT_CURRENT'  : 'A\r',
+        'GET_OUTPUT_LOAD'     : 'W\r',
+        'GET_VOLT_LIMIT'      : 'U\r',
+        'GET_CURRENT_LIMIT'   : 'I\r',
+        'GET_LOAD_LIMIT'      : 'P\r',
+        'GET_DEV_STATUS'      : 'F\r',
+        'SET_VOLT_LIMIT'      : 'SUM\r',
+        'SET_CUR_LIMIT'       : 'SIM\r',
+        'SET_LOAD_LIMIT'      : 'SPM\r',
+        # TODO implement rest command
+}
+
 class PSP405(object):
     def __init__ (self, port = None):
         '''
@@ -39,5 +54,45 @@ class PSP405(object):
         self.ser.xonxoff    = False     
         self.ser.rtscts     = False     
         self.ser.dsrdtr     = False    
+    
+    @property
+    def status_values(self):
+        pass
 
+    @property
+    def output_volt(self):
+        pass
+    @output_volt.setter
+    def output_volt(self):
+        pass
+
+    @property
+    def output_current(self):
+        pass
+    @output_current.setter
+    def output_current(self):
+        pass
+
+    @property
+    def output_load(self):
+        pass
+    @output_load.setter
+    def output_load(self):
+        pass
+
+    @property
+    def volt_limit(self):
+        pass
+
+    @property
+    def current_limit(self):
+        pass
+
+    @property
+    def load_limit(self):
+        pass
+
+    @property
+    def dev_status(self):
+        pass
 
