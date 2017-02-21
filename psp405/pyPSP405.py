@@ -32,9 +32,14 @@ _commands = {
 }
 
 class PSP405(object):
-    def __init__ (self, port = None):
+    def __init__ (self, port = None, timeout = 2):
         '''
             PSP needs a serial connection interface
+            use: 
+                    psp = PSP405('/dev/ttyUSB0')
+                    psp = PSP405('COM25')
+                    psp = PSP405('COM25', 5)
+                    psp = PSP405(timeout = 1, port = '/dev/ttyUSB0')
         '''
         if port == None:
             ## usage PSP405( <DEV_FILE/COM> )
@@ -50,7 +55,7 @@ class PSP405(object):
         self.ser.bytesize   = serial.EIGHTBITS 
         self.ser.parity     = serial.PARITY_NONE 
         self.ser.stopbits   = serial.STOPBITS_ONE 
-        self.ser.timeout    = 2
+        self.ser.timeout    = timeout
         self.ser.xonxoff    = False     
         self.ser.rtscts     = False     
         self.ser.dsrdtr     = False    
