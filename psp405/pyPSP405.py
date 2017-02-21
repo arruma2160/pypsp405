@@ -17,17 +17,17 @@ import os
 from .exceptions405 import NoPortParam, Permissions
 
 _commands = {
-        'GET_STATUS_VALUES'   : 'L\r',
-        'GET_OUTPUT_VOLT'     : 'V\r',
-        'GET_OUTPUT_CURRENT'  : 'A\r',
-        'GET_OUTPUT_LOAD'     : 'W\r',
-        'GET_VOLT_LIMIT'      : 'U\r',
-        'GET_CURRENT_LIMIT'   : 'I\r',
-        'GET_LOAD_LIMIT'      : 'P\r',
-        'GET_DEV_STATUS'      : 'F\r',
-        'SET_VOLT_LIMIT'      : 'SUM\r',
-        'SET_CUR_LIMIT'       : 'SIM\r',
-        'SET_LOAD_LIMIT'      : 'SPM\r',
+        'GET_STATUS_VALUES'   : b'L\r',
+        'GET_OUTPUT_VOLT'     : b'V\r',
+        'GET_OUTPUT_CURRENT'  : b'A\r',
+        'GET_OUTPUT_LOAD'     : b'W\r',
+        'GET_VOLT_LIMIT'      : b'U\r',
+        'GET_CURRENT_LIMIT'   : b'I\r',
+        'GET_LOAD_LIMIT'      : b'P\r',
+        'GET_DEV_STATUS'      : b'F\r',
+        'SET_VOLT_LIMIT'      : b'SUM\r',
+        'SET_CUR_LIMIT'       : b'SIM\r',
+        'SET_LOAD_LIMIT'      : b'SPM\r',
         # TODO implement rest command
 }
 

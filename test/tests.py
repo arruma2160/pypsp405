@@ -67,75 +67,75 @@ class TestRequestsCorrectness(TestCase):
             psp = PSP405('USB_MOCK')
             psp.ser = Mock(serial.Serial)
             psp.status_values
-            psp.ser.write.assert_called_with('L\r')
+            psp.ser.write.assert_called_with(b'L\r')
 
     def test_request_output_volt(self, mock):
         mock.return_value = 0   # Root 
         psp = PSP405('USB_MOCK')
         psp.ser = Mock(serial.Serial)
         psp.output_volt
-        psp.ser.write.assert_called_with('V\r')
+        psp.ser.write.assert_called_with(b'V\r')
 
     def test_request_output_current(self, mock):
         mock.return_value = 0   # Root 
         psp = PSP405('USB_MOCK')
         psp.ser = Mock(serial.Serial)
         psp.output_current
-        psp.ser.write.assert_called_with('A\r')
+        psp.ser.write.assert_called_with(b'A\r')
 
     def test_request_output_load(self, mock):
         mock.return_value = 0   # Root 
         psp = PSP405('USB_MOCK')
         psp.ser = Mock(serial.Serial)
         psp.output_load
-        psp.ser.write.assert_called_with('W\r')
+        psp.ser.write.assert_called_with(b'W\r')
 
     def test_request_volt_limit(self, mock):
         mock.return_value = 0   # Root 
         psp = PSP405('USB_MOCK')
         psp.ser = Mock(serial.Serial)
         psp.volt_limit
-        psp.ser.write.assert_called_with('U\r')
+        psp.ser.write.assert_called_with(b'U\r')
 
     def test_request_current_limit(self, mock):
         mock.return_value = 0   # Root 
         psp = PSP405('USB_MOCK')
         psp.ser = Mock(serial.Serial)
         psp.current_limit
-        psp.ser.write.assert_called_with('I\r')
+        psp.ser.write.assert_called_with(b'I\r')
 
     def test_request_load_limit(self, mock):
         mock.return_value = 0   # Root 
         psp = PSP405('USB_MOCK')
         psp.ser = Mock(serial.Serial)
         psp.load_limit
-        psp.ser.write.assert_called_with('P\r')
+        psp.ser.write.assert_called_with(b'P\r')
 
     def test_request_dev_status(self, mock):
         mock.return_value = 0   # Root 
         psp = PSP405('USB_MOCK')
         psp.ser = Mock(serial.Serial)
         psp.dev_status
-        psp.ser.write.assert_called_with('F\r')
+        psp.ser.write.assert_called_with(b'F\r')
 
     def test_request_set_volt_limit(self, mock):
         mock.return_value = 0   # Root 
         psp = PSP405('USB_MOCK')
         psp.ser = Mock(serial.Serial)
         psp.output_volt = 3
-        psp.ser.write.assert_called_with('SUM\r')
+        psp.ser.write.assert_called_with(b'SUM\r')
 
     def test_request_set_cur_limit(self, mock):
         mock.return_value = 0   # Root 
         psp = PSP405('USB_MOCK')
         psp.ser = Mock(serial.Serial)
         psp.output_current = 5
-        psp.ser.write.assert_called_with('SIM\r')
+        psp.ser.write.assert_called_with(b'SIM\r')
 
     def test_request_set_load_limit(self, mock):
         mock.return_value = 0   # Root 
         psp = PSP405('USB_MOCK')
         psp.ser = Mock(serial.Serial)
         psp.output_load = 3
-        psp.ser.write.assert_called_with('SPM\r')
+        psp.ser.write.assert_called_with(b'SPM\r')
 
