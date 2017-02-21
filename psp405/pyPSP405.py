@@ -50,7 +50,7 @@ class PSP405(object):
         self.ser.bytesize   = serial.EIGHTBITS 
         self.ser.parity     = serial.PARITY_NONE 
         self.ser.stopbits   = serial.STOPBITS_ONE 
-        # TODO self.ser.timeout = 1            
+        self.ser.timeout    = 2
         self.ser.xonxoff    = False     
         self.ser.rtscts     = False     
         self.ser.dsrdtr     = False    
