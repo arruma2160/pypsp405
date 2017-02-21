@@ -14,6 +14,7 @@
 import serial
 import sys
 import os
+import re
 from .exceptions405 import NoPortParam, Permissions
 
 _commands = {
@@ -63,6 +64,13 @@ class PSP405(object):
     @property
     def status_values(self):
         self.ser.write(_commands['GET_STATUS_VALUES'])
+        response = b''
+        retry = 0   ## Allows retry in case in a first request to read() returns an empty string
+        while not response.endswith(b'\r') and retry <= 3: # 3 retries allowed
+            response = self.ser.read(100)
+            retry += 1
+        V, A, W, U, I, P, F = re.findall(r"\d*\.\d+|\d+", response.decode('utf-8'))
+        return "V={};A={};W={};U={};I={};P={};F={}".format(V, A, W, U, I, P, F)
 
     @property
     def output_volt(self):

@@ -62,12 +62,22 @@ class TestRequestsCorrectness(TestCase):
     ''' 
     '''
     def test_request_status_values(self, mock):
+        ''' Tests that we are able to retrieve 
+            the correct answer at status request (twice)
+        '''
         with mock_file('USB_MOCK'):             
             mock.return_value = 0   # Root 
             psp = PSP405('USB_MOCK')
             psp.ser = Mock(serial.Serial)
-            psp.status_values
+            psp.ser.read.return_value = b'V12.34A3.345W041.3U25I9.99P100F111111\r'
+            response = psp.status_values
             psp.ser.write.assert_called_with(b'L\r')
+            self.assertEqual(response, "V=12.34;A=3.345;W=041.3;U=25;I=9.99;P=100;F=111111")
+            psp.ser.read.return_value = b'V11.34A4.345W043.3U25I9.99P100F111111\r'
+            response = psp.status_values
+            psp.ser.write.assert_called_with(b'L\r')
+            self.assertEqual(response, "V=11.34;A=4.345;W=043.3;U=25;I=9.99;P=100;F=111111")
+
 
     def test_request_output_volt(self, mock):
         mock.return_value = 0   # Root 
