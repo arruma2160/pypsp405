@@ -87,14 +87,14 @@ class TestRequestsCorrectness(TestCase):
             mock.return_value = 0   # Root 
             psp = PSP405('USB_MOCK')
             psp.ser = Mock(serial.Serial)
-            psp.ser.read.return_value = b'V012.45\r'
+            psp.ser.read.return_value = b'V12.45\r'
             response = psp.output_volt
             psp.ser.write.assert_called_with(b'V\r')
-            self.assertEqual(response, "V=012.45")
-            psp.ser.read.return_value = b'V011.21\r'
+            self.assertEqual(response, "V=12.45")
+            psp.ser.read.return_value = b'V11.21\r'
             response = psp.output_volt
             psp.ser.write.assert_called_with(b'V\r')
-            self.assertEqual(response, "V=011.21")
+            self.assertEqual(response, "V=11.21")
 
     def test_request_output_current(self, mock):
         ''' Tests that we are able to retrieve 
@@ -104,14 +104,14 @@ class TestRequestsCorrectness(TestCase):
             mock.return_value = 0   # Root 
             psp = PSP405('USB_MOCK')
             psp.ser = Mock(serial.Serial)
-            psp.ser.read.return_value = b'A12.145\r'
+            psp.ser.read.return_value = b'A9.145\r'
             response = psp.output_current
             psp.ser.write.assert_called_with(b'A\r')
-            self.assertEqual(response, "A=12.145")
-            psp.ser.read.return_value = b'A11.045\r'
+            self.assertEqual(response, "A=9.145")
+            psp.ser.read.return_value = b'A1.045\r'
             response = psp.output_current
             psp.ser.write.assert_called_with(b'A\r')
-            self.assertEqual(response, "A=11.045")
+            self.assertEqual(response, "A=1.045")
 
     def test_request_output_load(self, mock):
         ''' Tests that we are able to retrieve 
