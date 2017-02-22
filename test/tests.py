@@ -114,11 +114,21 @@ class TestRequestsCorrectness(TestCase):
             self.assertEqual(response, "A=11.045")
 
     def test_request_output_load(self, mock):
-        mock.return_value = 0   # Root 
-        psp = PSP405('USB_MOCK')
-        psp.ser = Mock(serial.Serial)
-        psp.output_load
-        psp.ser.write.assert_called_with(b'W\r')
+        ''' Tests that we are able to retrieve 
+            the correct answer at output_load request (twice)
+        '''
+        with mock_file('USB_MOCK'):             
+            mock.return_value = 0   # Root 
+            psp = PSP405('USB_MOCK')
+            psp.ser = Mock(serial.Serial)
+            psp.ser.read.return_value = b'W112.145\r'
+            response = psp.output_load
+            psp.ser.write.assert_called_with(b'W\r')
+            self.assertEqual(response, "W=112.145")
+            psp.ser.read.return_value = b'W111.045\r'
+            response = psp.output_load
+            psp.ser.write.assert_called_with(b'W\r')
+            self.assertEqual(response, "W=111.045")
 
     def test_request_volt_limit(self, mock):
         mock.return_value = 0   # Root 
