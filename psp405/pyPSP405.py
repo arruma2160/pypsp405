@@ -89,6 +89,13 @@ class PSP405(object):
     @property
     def output_current(self):
         self.ser.write(_commands['GET_OUTPUT_CURRENT'])
+        response = b''
+        retry = 0   ## Allows retry in case in a first request to read() returns an empty string
+        while not response.endswith(b'\r') and retry <= 3: # 3 retries allowed
+            response = self.ser.read(100)
+            retry += 1
+        A = re.findall(r"\d*\.\d+|\d+", response.decode('utf-8'))[0]
+        return "A={}".format(A)
     @output_current.setter
     def output_current(self, current):
         self.ser.write(_commands['SET_CUR_LIMIT'])

@@ -97,11 +97,21 @@ class TestRequestsCorrectness(TestCase):
             self.assertEqual(response, "V=011.21")
 
     def test_request_output_current(self, mock):
-        mock.return_value = 0   # Root 
-        psp = PSP405('USB_MOCK')
-        psp.ser = Mock(serial.Serial)
-        psp.output_current
-        psp.ser.write.assert_called_with(b'A\r')
+        ''' Tests that we are able to retrieve 
+            the correct answer at output_current request (twice)
+        '''
+        with mock_file('USB_MOCK'):             
+            mock.return_value = 0   # Root 
+            psp = PSP405('USB_MOCK')
+            psp.ser = Mock(serial.Serial)
+            psp.ser.read.return_value = b'A12.145\r'
+            response = psp.output_current
+            psp.ser.write.assert_called_with(b'A\r')
+            self.assertEqual(response, "A=12.145")
+            psp.ser.read.return_value = b'A11.045\r'
+            response = psp.output_current
+            psp.ser.write.assert_called_with(b'A\r')
+            self.assertEqual(response, "A=11.045")
 
     def test_request_output_load(self, mock):
         mock.return_value = 0   # Root 
