@@ -131,25 +131,56 @@ class TestRequestsCorrectness(TestCase):
             self.assertEqual(response, "W=111.045")
 
     def test_request_volt_limit(self, mock):
-        mock.return_value = 0   # Root 
-        psp = PSP405('USB_MOCK')
-        psp.ser = Mock(serial.Serial)
-        psp.volt_limit
-        psp.ser.write.assert_called_with(b'U\r')
+        ''' Tests that we are able to retrieve 
+            the correct answer at voltage limit request (twice)
+        '''
+        with mock_file('USB_MOCK'):             
+            mock.return_value = 0   # Root 
+            psp = PSP405('USB_MOCK')
+            psp.ser = Mock(serial.Serial)
+            psp.ser.read.return_value = b'U30\r'
+            response = psp.volt_limit
+            psp.ser.write.assert_called_with(b'U\r')
+            self.assertEqual(response, "VoltLimit=30")
+            psp.ser.read.return_value = b'U20\r'
+            response = psp.volt_limit
+            psp.ser.write.assert_called_with(b'U\r')
+            self.assertEqual(response, "VoltLimit=20")
+
 
     def test_request_current_limit(self, mock):
-        mock.return_value = 0   # Root 
-        psp = PSP405('USB_MOCK')
-        psp.ser = Mock(serial.Serial)
-        psp.current_limit
-        psp.ser.write.assert_called_with(b'I\r')
+        ''' Tests that we are able to retrieve 
+            the correct answer at current limit request (twice)
+        '''
+        with mock_file('USB_MOCK'):             
+            mock.return_value = 0   # Root 
+            psp = PSP405('USB_MOCK')
+            psp.ser = Mock(serial.Serial)
+            psp.ser.read.return_value = b'I3.330\r'
+            response = psp.current_limit
+            psp.ser.write.assert_called_with(b'I\r')
+            self.assertEqual(response, "CurrentLimit=3.330")
+            psp.ser.read.return_value = b'I4.321\r'
+            response = psp.current_limit
+            psp.ser.write.assert_called_with(b'I\r')
+            self.assertEqual(response, "CurrentLimit=4.321")
 
     def test_request_load_limit(self, mock):
-        mock.return_value = 0   # Root 
-        psp = PSP405('USB_MOCK')
-        psp.ser = Mock(serial.Serial)
-        psp.load_limit
-        psp.ser.write.assert_called_with(b'P\r')
+        ''' Tests that we are able to retrieve 
+            the correct answer at current limit request (twice)
+        '''
+        with mock_file('USB_MOCK'):             
+            mock.return_value = 0   # Root 
+            psp = PSP405('USB_MOCK')
+            psp.ser = Mock(serial.Serial)
+            psp.ser.read.return_value = b'P333\r'
+            response = psp.load_limit
+            psp.ser.write.assert_called_with(b'P\r')
+            self.assertEqual(response, "LoadLimit=333")
+            psp.ser.read.return_value = b'P432\r'
+            response = psp.load_limit
+            psp.ser.write.assert_called_with(b'P\r')
+            self.assertEqual(response, "LoadLimit=432")
 
     def test_request_dev_status(self, mock):
         mock.return_value = 0   # Root 

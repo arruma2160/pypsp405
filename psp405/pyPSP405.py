@@ -117,14 +117,35 @@ class PSP405(object):
     @property
     def volt_limit(self):
         self.ser.write(_commands['GET_VOLT_LIMIT'])
+        response = b''
+        retry = 0   ## Allows retry in case in a first request to read() returns an empty string
+        while not response.endswith(b'\r') and retry <= 3: # 3 retries allowed
+            response = self.ser.read(100)
+            retry += 1
+        W = re.findall(r"\d*\.\d+|\d+", response.decode('utf-8'))[0]
+        return "VoltLimit={}".format(W)
 
     @property
     def current_limit(self):
         self.ser.write(_commands['GET_CURRENT_LIMIT'])
+        response = b''
+        retry = 0   ## Allows retry in case in a first request to read() returns an empty string
+        while not response.endswith(b'\r') and retry <= 3: # 3 retries allowed
+            response = self.ser.read(100)
+            retry += 1
+        W = re.findall(r"\d*\.\d+|\d+", response.decode('utf-8'))[0]
+        return "CurrentLimit={}".format(W)
 
     @property
     def load_limit(self):
         self.ser.write(_commands['GET_LOAD_LIMIT'])
+        response = b''
+        retry = 0   ## Allows retry in case in a first request to read() returns an empty string
+        while not response.endswith(b'\r') and retry <= 3: # 3 retries allowed
+            response = self.ser.read(100)
+            retry += 1
+        W = re.findall(r"\d*\.\d+|\d+", response.decode('utf-8'))[0]
+        return "LoadLimit={}".format(W)
 
     @property
     def dev_status(self):
